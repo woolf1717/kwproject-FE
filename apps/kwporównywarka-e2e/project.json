@@ -1,0 +1,29 @@
+{
+  "name": "kwporównywarka-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/kwporównywarka-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/kwporównywarka-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "kwporównywarka:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "kwporównywarka:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/kwporównywarka-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["kwporównywarka"]
+}
