@@ -1,4 +1,7 @@
 import './global.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { NavBar } from './components/NavBar/NavBar';
 
 export const metadata = {
   title: 'Welcome to kwporównywarka',
@@ -12,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <NavBar />
+        {children}
+      </body>
     </html>
   );
 }
