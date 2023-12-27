@@ -1,6 +1,20 @@
+import { FC } from 'react';
+import { removeBook } from '../../../api/booksApi';
 import { useRouter } from 'next/navigation';
 
-const BookEditOptions = () => {
+type BookEditOptionsProps = {
+  bookId: string;
+  setBookId: (bookId: string) => void;
+  setCurrentBook: (currentBook: undefined) => void;
+  setCurrentFormValue: (currentFormValue: string) => void;
+};
+
+const BookEditOptions: FC<BookEditOptionsProps> = ({
+  bookId,
+  setBookId,
+  setCurrentBook,
+  setCurrentFormValue,
+}) => {
   const router = useRouter();
 
   const options = [
@@ -12,8 +26,12 @@ const BookEditOptions = () => {
     },
     {
       name: 'Remove book',
-      handler: () => {
-        throw alert('Remove book');
+      handler: async () => {
+        await removeBook(bookId);
+        setBookId('');
+        setCurrentBook(undefined);
+        setCurrentFormValue('');
+        router.refresh();
       },
     },
     {
@@ -37,7 +55,6 @@ const BookEditOptions = () => {
           {option.name}
         </button>
       ))}
-      ;
     </>
   );
 };

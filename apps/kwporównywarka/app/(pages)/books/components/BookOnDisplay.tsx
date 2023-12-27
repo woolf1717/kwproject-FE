@@ -9,9 +9,15 @@ import { getBook } from '../../../api/booksApi';
 
 type BookOnDisplayProps = {
   bookId: string;
+  setBookId: (bookId: string) => void;
+  setCurrentFormValue: (currentFormValue: string) => void;
 };
 
-const BookOnDisplay: FC<BookOnDisplayProps> = ({ bookId }) => {
+const BookOnDisplay: FC<BookOnDisplayProps> = ({
+  bookId,
+  setBookId,
+  setCurrentFormValue,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
@@ -71,7 +77,12 @@ const BookOnDisplay: FC<BookOnDisplayProps> = ({ bookId }) => {
   };
   return (
     <Container>
-      <BookEditOptions />
+      <BookEditOptions
+        bookId={bookId}
+        setBookId={setBookId}
+        setCurrentBook={setCurrentBook}
+        setCurrentFormValue={setCurrentFormValue}
+      />
       {bookId ? (
         <>
           <h2 className="pt-5">{currentBook?.title}</h2>

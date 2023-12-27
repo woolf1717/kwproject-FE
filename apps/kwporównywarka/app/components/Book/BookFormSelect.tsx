@@ -8,28 +8,35 @@ import { BookNumber } from '../../types/book';
 type BooksFormSelectProps = {
   books: BookNumber[];
   setBookId: Dispatch<SetStateAction<string>>;
+  currentFormValue: string;
+  setCurrentFormValue: Dispatch<SetStateAction<string>>;
 };
 
 export const BooksFormSelect: FC<BooksFormSelectProps> = ({
   books,
   setBookId,
+  currentFormValue,
+  setCurrentFormValue,
 }) => {
-  const displayBooksOptions = () =>
-    books.map((book: BookNumber, i: number) => (
+  const displayBooksOptions = () => {
+    console.log('display book options');
+    return books.map((book: BookNumber, i: number) => (
       <option value={book.id} key={i}>
         {book.departmentCode}/{book.bookNumber}/{book.controlNumber}
       </option>
     ));
+  };
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setBookId(e.target.value);
+    setCurrentFormValue(e.target.value);
   };
 
   return (
     <Container>
       <div className="mt-5  text-center">
-        <Form.Select onChange={(e) => handleChange(e)}>
-          <option value={''}>Choose book you want to see.</option>
+        <Form.Select onChange={(e) => handleChange(e)} value={currentFormValue}>
+          <option value={0}>Choose book you want to see.</option>
           {displayBooksOptions()}
         </Form.Select>
       </div>

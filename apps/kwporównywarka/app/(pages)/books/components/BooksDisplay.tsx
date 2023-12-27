@@ -12,12 +12,23 @@ type BooksDisplayProps = {
 
 const BooksDisplay: FC<BooksDisplayProps> = ({ books }) => {
   const [bookId, setBookId] = useState('');
+  const [currentFormValue, setCurrentFormValue] = useState('');
 
   return (
     <>
-      <BooksFormSelect books={books} setBookId={setBookId} />
+      <BooksFormSelect
+        books={books}
+        setBookId={setBookId}
+        currentFormValue={currentFormValue}
+        setCurrentFormValue={setCurrentFormValue}
+      />
+      <div>{bookId}</div>
       <Suspense fallback={<div>Loading...</div>}>
-        <BookOnDisplay bookId={bookId} />
+        <BookOnDisplay
+          bookId={bookId}
+          setBookId={setBookId}
+          setCurrentFormValue={setCurrentFormValue}
+        />
       </Suspense>
     </>
   );

@@ -34,3 +34,11 @@ export const addBook = async (book: Book) => {
 
   return await response.json();
 };
+
+export const removeBook = async (id: string) => {
+  const response = await fetch(`http://localhost:3000/book/${id}`, {
+    method: 'DELETE',
+  });
+
+  return await response.json();
+};
