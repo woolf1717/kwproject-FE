@@ -36,9 +36,21 @@ export const addBook = async (book: Book) => {
 };
 
 export const removeBook = async (id: string) => {
+  if (id === '0') return;
+
   const response = await fetch(`http://localhost:3000/book/${id}`, {
     method: 'DELETE',
   });
 
+  return await response.json();
+};
+
+export const compareBooks = async (id: string, idTwo: string) => {
+  const response = await fetch(
+    `http://localhost:3000/book/compare/${id}/${idTwo}`,
+    {
+      method: 'GET',
+    }
+  );
   return await response.json();
 };

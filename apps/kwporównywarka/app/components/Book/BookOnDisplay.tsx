@@ -1,11 +1,9 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { Book } from '../../../types/book';
-import BookEditOptions from './BookEditOptions';
-import { Container } from 'react-bootstrap';
+import { Book } from '../../types/book';
 import { compiler } from 'markdown-to-jsx';
-import { getBook } from '../../../api/booksApi';
+import { getBook } from '../../api/booksApi';
 
 type BookOnDisplayProps = {
   bookId: string;
@@ -13,11 +11,7 @@ type BookOnDisplayProps = {
   setCurrentFormValue: (currentFormValue: string) => void;
 };
 
-const BookOnDisplay: FC<BookOnDisplayProps> = ({
-  bookId,
-  setBookId,
-  setCurrentFormValue,
-}) => {
+const BookOnDisplay: FC<BookOnDisplayProps> = ({ bookId }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
@@ -34,7 +28,7 @@ const BookOnDisplay: FC<BookOnDisplayProps> = ({
   ];
 
   useEffect(() => {
-    if (bookId === '' || bookId === 'Choose book you want to see.') {
+    if (bookId === '0' || bookId === 'Choose book you want to see.') {
       router.push(pathname);
     } else {
       router.push(
@@ -44,7 +38,7 @@ const BookOnDisplay: FC<BookOnDisplayProps> = ({
     const currentBookFetch = async () => {
       setCurrentBook(await getBook(bookId));
     };
-    if (bookId === '' || bookId === 'Choose book you want to see.') return;
+    if (bookId === '0' || bookId === 'Choose book you want to see.') return;
     else currentBookFetch();
   }, [bookId]);
 
@@ -76,14 +70,8 @@ const BookOnDisplay: FC<BookOnDisplayProps> = ({
     ));
   };
   return (
-    <Container>
-      <BookEditOptions
-        bookId={bookId}
-        setBookId={setBookId}
-        setCurrentBook={setCurrentBook}
-        setCurrentFormValue={setCurrentFormValue}
-      />
-      {bookId ? (
+    <>
+      {bookId !== '0' ? (
         <>
           <h2 className="pt-5">{currentBook?.title}</h2>
           <div>{chaptersNav()}</div>
@@ -109,7 +97,7 @@ const BookOnDisplay: FC<BookOnDisplayProps> = ({
       ) : (
         ''
       )}
-    </Container>
+    </>
   );
 };
 

@@ -1,9 +1,9 @@
-import BooksDisplay from './components/BooksDisplay';
+import BooksDisplayComponent from './components/BooksDisplayComponent';
 import { getBooks } from '../../api/booksApi';
 
 const Books = async () => {
   const books = await getBooks();
 
-  return <BooksDisplay books={books} />;
+  return <BooksDisplayComponent books={books} />;
 };
 export default Books;

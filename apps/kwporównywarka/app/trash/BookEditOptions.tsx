@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { removeBook } from '../../../api/booksApi';
+import { removeBook } from '../api/booksApi';
 import { useRouter } from 'next/navigation';
 
 type BookEditOptionsProps = {
@@ -28,14 +28,14 @@ const BookEditOptions: FC<BookEditOptionsProps> = ({
       name: 'Remove book',
       handler: async () => {
         await removeBook(bookId);
-        setBookId('');
+        setBookId('0');
         setCurrentBook(undefined);
         setCurrentFormValue('');
         router.refresh();
       },
     },
     {
-      name: 'Compare book',
+      name: 'Compare books',
       handler: () => {
         throw alert('Compare book');
       },
@@ -51,7 +51,7 @@ const BookEditOptions: FC<BookEditOptionsProps> = ({
   return (
     <>
       {options.map((option, i) => (
-        <button key={i} onClick={option.handler}>
+        <button key={i} onClick={option.handler} className="m-2">
           {option.name}
         </button>
       ))}

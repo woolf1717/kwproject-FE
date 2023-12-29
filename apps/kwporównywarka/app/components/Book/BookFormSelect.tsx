@@ -1,9 +1,9 @@
 'use client';
 
 import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
-import { Container, Form } from 'react-bootstrap';
 
 import { BookNumber } from '../../types/book';
+import { Form } from 'react-bootstrap';
 
 type BooksFormSelectProps = {
   books: BookNumber[];
@@ -33,13 +33,13 @@ export const BooksFormSelect: FC<BooksFormSelectProps> = ({
   };
 
   return (
-    <Container>
+    <>
       <div className="mt-5  text-center">
         <Form.Select onChange={(e) => handleChange(e)} value={currentFormValue}>
           <option value={0}>Choose book you want to see.</option>
           {displayBooksOptions()}
         </Form.Select>
       </div>
-    </Container>
+    </>
   );
 };
